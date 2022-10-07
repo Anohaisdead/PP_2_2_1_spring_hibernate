@@ -7,18 +7,18 @@ import javax.persistence.*;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_id")
-    private int id;
-
-    @Column
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "model")
     private String model;
-
-    @Column
+    @Column(name = "series")
     private int series;
+
+    @OneToOne(mappedBy = "carUs")
+    private User user;
 
     public Car() {
     }
-
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
@@ -40,10 +40,19 @@ public class Car {
         this.series = series;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
-                "model='" + model + '\'' +
+                "id=" + id +
+                ", model='" + model + '\'' +
                 ", series=" + series +
                 '}';
     }
